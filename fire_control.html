@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第三大隊火場管制系統</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 10px; }
+        .container { max-width: 600px; margin: auto; }
+        h2 { color: #ff5252; text-align: center; }
+        
+        .list-section { background: #1e1e1e; padding: 15px; border-radius: 10px; border: 1px solid #333; }
+        .member-row { display: flex; align-items: center; background: #2a2a2a; margin: 8px 0; padding: 10px; border-radius: 6px; }
+        .member-info { flex: 1; font-weight: bold; }
+        .member-id { color: #64ffda; margin-right: 12px; font-family: monospace; }
+        
+        .btn-group { display: flex; gap: 8px; }
+        .btn { padding: 8px 12px; border-radius: 5px; cursor: pointer; border: none; color: white; font-weight: bold; font-size: 14px; }
+        .btn-in { background-color: #d32f2f; }
+        .btn-out { background-color: #388e3c; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>第三大隊人員動態板</h2>
+    
+    <div class="list-section">
+        <div id="all-members-area"></div>
+    </div>
+</div>
+
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyanXbWpUUpS_hqPSxL9K8b_-3VRWsK5dj5zHq_5uUYc_PI5ox4TU0jVcjuRAwiFV7n/exec";
+    const KEY = "z";
+    // 這裡放入您的完整人員清單
+    const members = {
+        3501: "歐顯孝(中山分隊)", 3502: "曾世璿(中山分隊)", 3503: "楊春長(中山分隊)", 3504: "黃健閔(中山分隊)", 3505: "蔡昇志(中山分隊)",
+        3506: "吳柏佑(中山分隊)", 3507: "蘇信衡(中山分隊)", 3508: "王柏翔(中山分隊)", 3509: "施志偉(中山分隊)", 3510: "古奇峯(中山分隊)",
+        3511: "吳康豪(中山分隊)", 3512: "劉羽程(中山分隊)", 3513: "游登翔(中山分隊)", 3514: "盧功榮(中山分隊)", 3515: "黃榮祥(中山分隊)",
+        3516: "蔡侑築(中山分隊)", 3517: "洪祥倫(中山分隊)", 3518: "魏志宇(中山分隊)", 3519: "林晨賢(中山分隊)", 3520: "陳建銘(中山分隊)",
+        3521: "廖晟翔(中山分隊)", 3522: "華昱銘(中山分隊)", 3523: "吳晟豪(中山分隊)", 3524: "謝詠勳(中山分隊)", 3525: "李佳陽(中山分隊)",
+        3526: "林峰玉(中山分隊)", 3527: "來祐興(中山分隊)", 3528: "施冠宇(中山分隊)", 3529: "范庭嘉(中山分隊)", 3530: "侯鈞婷(中山分隊)",
+        3531: "林育豪(中山分隊)", 3532: "廖芳瑜(中山分隊)", 3533: "廖唯伸(中山分隊)", 3534: "陳俞霈(中山分隊)", 3535: "施明谷(中山分隊)",
+        3536: "廖延宗(中山分隊)"
+    };
+
+    function render() {
+        const area = document.getElementById('all-members-area');
+        area.innerHTML = '';
+        
+        Object.keys(members).forEach(id => {
+            const row = document.createElement('div');
+            row.className = 'member-row';
+            row.innerHTML = `
+                <div class="member-info">
+                    <span class="member-id">${id}</span>
+                    <span class="member-name">${members[id]}</span>
+                </div>
+                <div class="btn-group">
+                    <a href="${SCRIPT_URL}?mode=go&emp=${id}&io=in&key=${KEY}" target="_blank" class="btn btn-in">入室</a>
+                    <a href="${SCRIPT_URL}?mode=go&emp=${id}&io=out&key=${KEY}" target="_blank" class="btn btn-out">待命</a>
+                </div>
+            `;
+            area.appendChild(row);
+        });
+    }
+    render();
+</script>
+
+</body>
+</html>
